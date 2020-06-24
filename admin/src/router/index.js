@@ -128,6 +128,7 @@ export const asyncRoutes = [
     redirect: '/example/table',
     name: 'Example',
     meta: { title: 'Example', icon: 'el-icon-s-help' },
+    roles: ['admin', 'editor'],
     children: [
       {
         path: 'table',
@@ -136,7 +137,7 @@ export const asyncRoutes = [
         meta: {
           title: 'Table',
           icon: 'table',
-          roles: ['admin', 'editor']
+          roles: ['admin']
         }
       },
       {
@@ -146,7 +147,7 @@ export const asyncRoutes = [
         meta: {
           title: 'Tree',
           icon: 'tree',
-          roles: ['admin', 'editor']
+          roles: ['editor']
         }
       }
     ]
@@ -163,7 +164,7 @@ export const asyncRoutes = [
         meta: {
           title: 'Form',
           icon: 'form',
-          roles: ['admin', 'editor']
+          roles: ['editor']
         }
       }
     ]
@@ -178,7 +179,7 @@ export const asyncRoutes = [
         meta: {
           title: 'External Link',
           icon: 'link',
-          roles: ['admin', 'editor']
+          roles: ['admin']
         }
       }
     ]

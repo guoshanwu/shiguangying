@@ -2,8 +2,7 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\Api\VerfigToken;
-use App\Http\Middleware\VerifyCsrfToken;
+use App\Http\Middleware\Admin\VerfigToken;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -40,8 +39,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
-
-        'api' => [
+        'admin' => [
 
         ],
     ];
@@ -64,6 +62,6 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'api.verfig_token' => VerfigToken::class,
+        'admin.verfig_token' => VerfigToken::class,
     ];
 }

@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,12 +12,12 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::prefix('Login')->group(function(){
-    Route::post('index', 'LoginController@index');  //登录
-});
+Route::post('Login/index', 'LoginController@index');  //登录
+
+Route::get('User/info', 'UserController@info');  //获取用户信息
 
 //验证token
-Route::middleware(['api.verfig_token'])->group(function(){
+Route::middleware(['admin.verfig_token'])->group(function(){
     Route::prefix('Login')->group(function(){
         Route::post('logout', 'LoginController@logout');  //退出
     });

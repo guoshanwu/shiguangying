@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\SystemUsers;
 use Illuminate\Http\Request;
@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Redis;
 class LoginController extends BaseController
 {
     /**
-     * @api {post} api/Login/index 登录
+     * @api {post} admin/Login/index 登录
      *
      * @apiParam {string} username    用户名
      * @apiParam {string} password    密码
@@ -30,20 +30,27 @@ class LoginController extends BaseController
         }
         SystemUsers::where(['id' => $user->id])->update(['ip' => $request->ip()]);
         //设置缓存
-        $apiToken = md5(uniqid() . time());
-        Redis::setex('ApiLogin:' . $apiToken, env('REDIS_TIMEOUT'), json_encode($user));
-        Redis::setex('ApiLogin:' . $user->id, env('REDIS_TIMEOUT'), $apiToken);
-        return $this->success(['api_token' => $apiToken]);
+        $adminToken = md5(uniqid() . time());
+        //用户redis
+        $userRedis = [
+            'name' => $user['username'],
+            'avatar' => '',
+            'introduction' => '',
+            'roles' => ['editor']
+        ];
+        Redis::setex('AdminLogin:' . $adminToken, env('REDIS_TIMEOUT'), json_encode($userRedis));
+        Redis::setex('AdminLogin:' . $user->id, env('REDIS_TIMEOUT'), $adminToken);
+        return $this->success(['admin_token' => $adminToken]);
     }
 
     /**
-     * @api {post} api/Login/logout 退出登录
+     * @api {post} admin/Login/logout 退出登录
      *
      */
     public function logout(Request $request){
-        $apiToken = $request->header('Api-Token');
-        Redis::del('ApiLogin:' . $apiToken);
-        Redis::del('ApiLogin:' . $this->userInfo['id']);
+        $adminToken = $request->header('Admin-Token');
+        Redis::del('AdminLogin:' . $adminToken);
+        Redis::del('AdminLogin:' . $this->userInfo['id']);
         return $this->success('退出登录');
     }
 
