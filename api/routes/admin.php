@@ -21,4 +21,7 @@ Route::middleware(['admin.verfig_token'])->group(function(){
     Route::prefix('Login')->group(function(){
         Route::post('logout', 'LoginController@logout');  //退出
     });
+    Route::prefix('Menu')->group(function(){
+        Route::get('index', 'MenuController@index');  //用户菜单
+    });
 });

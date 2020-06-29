@@ -14,11 +14,8 @@ class UserController extends BaseController
      * @apiParam {string} Admin-Token    token
      *
      */
-    public function info(Request $request){
-        if (!$request->has('admin_token')){
-            return $this->error('缺少Admin-Token值');
-        }
-        $adminToken = Redis::get('AdminLogin:' . $request->input('admin_token'));
+    public function info(){
+        $adminToken = Redis::get('AdminLogin:' . $this->adminToken);
         if (empty($adminToken)){
             return $this->error('登录已超时,请重新登录', 503);
         }
