@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-
 use App\Models\SystemMenu;
 
 class MenuController extends BaseController

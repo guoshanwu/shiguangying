@@ -24,4 +24,7 @@ Route::middleware(['admin.verfig_token'])->group(function(){
     Route::prefix('Menu')->group(function(){
         Route::get('index', 'MenuController@index');  //获取用户对应的菜单
     });
+    Route::prefix('Menu')->group(function(){
+        Route::get('index', 'MenuController@index');  //用户菜单
+    });
 });
