@@ -1,5 +1,6 @@
 import request from '@/utils/request'
 
+// 登录
 export function login(data) {
   return request({
     url: 'admin/Login/index',
@@ -8,17 +9,18 @@ export function login(data) {
   })
 }
 
-export function getInfo(admin_token) {
+// 获取用户信息
+export function getInfo() {
   return request({
     url: 'admin/User/info',
-    method: 'get',
-    params: { admin_token }
+    method: 'get'
   })
 }
 
+// 退出
 export function logout() {
   return request({
-    url: '/vue-admin-template/user/logout',
-    method: 'post'
+    url: 'admin/Login/logout',
+    method: 'get'
   })
 }

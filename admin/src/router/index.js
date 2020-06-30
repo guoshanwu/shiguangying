@@ -30,6 +30,7 @@ import Layout from '@/layout'
  * a base page that does not have permission requirements
  * all roles can be accessed
  */
+/*
 export const constantRoutes = [
   {
     path: '/login',
@@ -116,75 +117,9 @@ export const constantRoutes = [
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
+*/
 
-/**
- * asyncRoutes
- * the routes that need to be dynamically loaded based on user roles
- */
-export const asyncRoutes = [
-  {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'el-icon-s-help' },
-    roles: ['admin', 'editor'],
-    children: [
-      {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: {
-          title: 'Table',
-          icon: 'table',
-          roles: ['admin']
-        }
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: {
-          title: 'Tree',
-          icon: 'tree',
-          roles: ['editor']
-        }
-      }
-    ]
-  },
-
-  {
-    path: '/form',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: {
-          title: 'Form',
-          icon: 'form',
-          roles: ['editor']
-        }
-      }
-    ]
-  },
-
-  {
-    path: 'external-link',
-    component: Layout,
-    children: [
-      {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: {
-          title: 'External Link',
-          icon: 'link',
-          roles: ['admin']
-        }
-      }
-    ]
-  }
-]
+export const constantRoutes = []
 
 const createRouter = () => new Router({
   // mode: 'history', // require service support

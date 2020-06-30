@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 19/06/2020 17:56:12
+ Date: 30/06/2020 18:39:55
 */
 
 SET NAMES utf8mb4;
@@ -32,10 +32,10 @@ CREATE TABLE `sgy_system_auth`  (
 ) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '权限表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for sgy_system_menu
+-- Table structure for sgy_system_menus
 -- ----------------------------
-DROP TABLE IF EXISTS `sgy_system_menu`;
-CREATE TABLE `sgy_system_menu`  (
+DROP TABLE IF EXISTS `sgy_system_menus`;
+CREATE TABLE `sgy_system_menus`  (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `pid` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '父菜单id',
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '菜单标题',
@@ -47,7 +47,20 @@ CREATE TABLE `sgy_system_menu`  (
   `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0),
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单表' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sgy_system_menus
+-- ----------------------------
+INSERT INTO `sgy_system_menus` VALUES (1, 0, 'Dashboard', '', '1', 'dashboard', 0, 1, '2020-06-29 16:08:46', NULL);
+INSERT INTO `sgy_system_menus` VALUES (2, 0, 'Nested', 'nested', '1', 'nested', 0, 1, '2020-06-29 16:09:48', NULL);
+INSERT INTO `sgy_system_menus` VALUES (3, 2, 'Menu1', 'nested/menu1', '2', NULL, 0, 1, '2020-06-30 16:30:44', NULL);
+INSERT INTO `sgy_system_menus` VALUES (7, 3, 'Menu1-3', 'nested/menu1/menu1-3', '3', NULL, 0, 1, '2020-06-30 16:29:53', NULL);
+INSERT INTO `sgy_system_menus` VALUES (6, 3, 'Menu1-2', 'nested/menu1/menu1-2', '3', NULL, 0, 1, '2020-06-30 16:30:01', NULL);
+INSERT INTO `sgy_system_menus` VALUES (5, 3, 'Menu1-1', 'nested/menu1/menu1-1', '3', NULL, 0, 1, '2020-06-30 16:30:03', NULL);
+INSERT INTO `sgy_system_menus` VALUES (4, 2, 'Menu2', 'nested/menu2', '2', NULL, 0, 1, '2020-06-30 16:30:52', NULL);
+INSERT INTO `sgy_system_menus` VALUES (8, 6, 'Menu1-2-1', 'nested/menu2/menu1-2-1', '4', NULL, 0, 1, '2020-06-30 16:31:13', NULL);
+INSERT INTO `sgy_system_menus` VALUES (9, 6, 'Menu1-2-2', 'nested/menu2/menu1-2-2', '4', NULL, 0, 1, '2020-06-30 16:31:23', NULL);
 
 -- ----------------------------
 -- Table structure for sgy_system_role
@@ -100,7 +113,7 @@ CREATE TABLE `sgy_system_users`  (
 -- ----------------------------
 -- Records of sgy_system_users
 -- ----------------------------
-INSERT INTO `sgy_system_users` VALUES (1, 'admin', '', NULL, 1, '2020-05-29 16:19:58', NULL);
-INSERT INTO `sgy_system_users` VALUES (2, 'test', 'eyJpdiI6Ijc3amRzdUZOcE54bTNiM0duZzB0Tmc9PSIsInZhbHVlIjoiU0RZeHhuU3ZiNlVQdlI5dHNIRUh2dz09IiwibWFjIjoiZWMwMzI2Y2FjYjU3YmZjYzJhNmY4YTY1YjNhZTMwMTNmZGI2N2FjODgyYjUzMTMwZWMzMzE5NmJhMDZkMThmZiJ9', '127.0.0.1', 1, '2020-06-18 15:13:55', '2020-06-19 14:55:30');
+INSERT INTO `sgy_system_users` VALUES (1, 'admin', 'eyJpdiI6ImlWd1g5eFJIU241UTcrdHQ2a0E3UHc9PSIsInZhbHVlIjoiWThxQ056YUpFNVZDcmVkR0VaWXpWZz09IiwibWFjIjoiY2MzZWNjMGQ0NDU3NmZlZDFiMjY5YzE3OGQyODk1MzJhNjc1MGMxNTY1NjkyYzU4NjM2MDBjZWIzYjUwMDJlZSJ9', '127.0.0.1', 1, '2020-05-29 16:19:58', '2020-06-30 16:32:31');
+INSERT INTO `sgy_system_users` VALUES (2, 'test', 'eyJpdiI6ImlWd1g5eFJIU241UTcrdHQ2a0E3UHc9PSIsInZhbHVlIjoiWThxQ056YUpFNVZDcmVkR0VaWXpWZz09IiwibWFjIjoiY2MzZWNjMGQ0NDU3NmZlZDFiMjY5YzE3OGQyODk1MzJhNjc1MGMxNTY1NjkyYzU4NjM2MDBjZWIzYjUwMDJlZSJ9', '127.0.0.1', 1, '2020-06-18 15:13:55', '2020-06-23 16:23:33');
 
 SET FOREIGN_KEY_CHECKS = 1;

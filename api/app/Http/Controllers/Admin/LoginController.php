@@ -34,9 +34,7 @@ class LoginController extends BaseController
         //用户redis
         $userRedis = [
             'name' => $user['username'],
-            'avatar' => '',
-            'introduction' => '',
-            'roles' => ['editor']
+            'avatar' => 'https://test-fbb-work-1259099789.cos.ap-guangzhou.myqcloud.com/uploads/20200630/c8dea6d722012971887d8dbc17d60b31.jpg',
         ];
         Redis::setex('AdminLogin:' . $adminToken, env('REDIS_TIMEOUT'), json_encode($userRedis));
         Redis::setex('AdminLogin:' . $user->id, env('REDIS_TIMEOUT'), $adminToken);
@@ -44,12 +42,11 @@ class LoginController extends BaseController
     }
 
     /**
-     * @api {post} admin/Login/logout 退出登录
+     * @api {get} admin/Login/logout 退出登录
      *
      */
-    public function logout(Request $request){
-        $adminToken = $request->header('Admin-Token');
-        Redis::del('AdminLogin:' . $adminToken);
+    public function logout(){
+        Redis::del('AdminLogin:' . $this->adminToken);
         Redis::del('AdminLogin:' . $this->userInfo['id']);
         return $this->success('退出登录');
     }
