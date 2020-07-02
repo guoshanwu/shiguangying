@@ -42,9 +42,12 @@ const actions = {
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
         const { data } = response
+        commit('SET_NAME', data.name)
+        commit('SET_AVATAR', data.avatar)
+        commit('SET_ROLES', data.roles)
         commit('SET_TOKEN', data.admin_token)
         setToken(data.admin_token)
-        resolve()
+        resolve(data)
       }).catch(error => {
         reject(error)
       })
@@ -78,7 +81,7 @@ const actions = {
       })
     })
   },
-
+  
   // user logout
   logout({ commit, state }) {
     return new Promise((resolve, reject) => {

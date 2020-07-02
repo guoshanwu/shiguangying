@@ -35,6 +35,7 @@ class LoginController extends BaseController
         $userRedis = [
             'name' => $user['username'],
             'avatar' => 'https://test-fbb-work-1259099789.cos.ap-guangzhou.myqcloud.com/uploads/20200630/c8dea6d722012971887d8dbc17d60b31.jpg',
+            'roles' => ['admin']
         ];
         Redis::setex('AdminLogin:' . $adminToken, env('REDIS_TIMEOUT'), json_encode($userRedis));
         Redis::setex('AdminLogin:' . $user->id, env('REDIS_TIMEOUT'), $adminToken);

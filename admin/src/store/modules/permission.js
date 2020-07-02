@@ -93,7 +93,7 @@ function convertTree(menuList, router, removeMenuList) {
       let menu = {
         path: m.path,
         name: m.title,
-        component: () => import('@/views/' + viewpath),
+        component: () => import('@/views/' + m.path),
         meta: {
           id: m.id,
           title: m.title,
