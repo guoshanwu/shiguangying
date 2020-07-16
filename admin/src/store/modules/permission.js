@@ -48,15 +48,16 @@ async function getRoutes(commit) {
     menu = menuList[i]
     if (menu.pid === 0) {
       let modult = {
-        alwaysShow: true,
-        path: '/' + menu.path,
-        component: Layout,
+        alwaysShow: false,
+        path: menu.path,
         name: menu.title,
+        component(resolve) {
+          require(['@/views/' + m.path + '/index.vue'], resolve)
+        },
         meta: {
           id: menu.id,
           title: menu.title,
-          icon: menu.icon,
-          pullPath: '/' + menu.path
+          icon: menu.icon
         }
       }
       menuRoutes.push(modult)
@@ -89,16 +90,15 @@ function convertTree(menuList, router, removeMenuList) {
       if (!router.children) {
         router.children = []
       }
-      let viewpath = router.meta.fullPath + '/' + m.path
       let menu = {
         path: m.path,
         name: m.title,
-        component: () => import('@/views/' + m.path),
+        component(resolve) {
+          require(['@/views/' + m.path + '/index.vue'], resolve)
+        },
         meta: {
           id: m.id,
-          title: m.title,
-          icon: m.icon,
-          fullPath: viewpath
+          title: m.title
         }
       }
       router.children.push(convertTree(menuList, menu, removeMenuList))
