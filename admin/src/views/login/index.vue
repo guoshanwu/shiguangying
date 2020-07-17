@@ -78,13 +78,14 @@ export default {
       },
       loading: false,
       passwordType: 'password',
-      redirect: undefined
+      redirect: '/dashboard'
     }
   },
   watch: {
     $route: {
       handler: function(route) {
         this.redirect = route.query && route.query.redirect
+        console.log(route)
       },
       immediate: true
     }
@@ -105,7 +106,7 @@ export default {
         if (valid) {
           this.loading = true
           this.$store.dispatch('user/login', this.loginForm).then(() => {
-            alert(this.redirect)
+            alert(this.redirect || '/')
             this.$router.push({ path: this.redirect || '/' })
             this.loading = false
           }).catch(() => {

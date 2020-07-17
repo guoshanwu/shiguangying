@@ -1,7 +1,5 @@
-import { constantRoutes } from '@/router'
 import { getUserRoutes } from '@/api/menu'
 import { Message } from 'element-ui'
-import Layout from '@/layout'
 
 const state = {
   routes: [],
@@ -9,9 +7,10 @@ const state = {
 }
 
 const mutations = {
-  SET_ROUTES: (state, routes) => {
-    state.addRoutes = routes
-    state.routes = constantRoutes.concat(routes)
+  RESET_PERMISSSION: (state) => {
+    state.routes = []
+    state.addRoutes = []
+    state.menuList = []
   }
 }
 
@@ -52,7 +51,7 @@ async function getRoutes(commit) {
         path: menu.path,
         name: menu.title,
         component(resolve) {
-          require(['@/views/' + m.path + '/index.vue'], resolve)
+          require(['@/views/' + menu.path + '/index.vue'], resolve)
         },
         meta: {
           id: menu.id,
