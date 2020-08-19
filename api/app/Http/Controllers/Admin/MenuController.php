@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\SystemMenu;
+use Illuminate\Support\Facades\DB;
 
 class MenuController extends BaseController
 {
     /**
-     * @api {get} admin/Menu/index 获取用户对应的菜单
+     * @api {get} admin/Menu/menuList 获取用户对应的菜单
      *
      */
-    public function index(){
-        $result = SystemMenu::all();
+    public function menuList(){
+        $result = DB::table('system_menus')->where('id', 1)->get();
         return $this->success($result);
     }
 }

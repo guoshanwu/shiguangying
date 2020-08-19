@@ -1,5 +1,7 @@
+import { constantRoutes } from '@/router'
 import { getUserRoutes } from '@/api/menu'
 import { Message } from 'element-ui'
+import Layout from '@/layout'
 
 const state = {
   routes: [],
@@ -7,6 +9,10 @@ const state = {
 }
 
 const mutations = {
+  SET_ROUTES: (state, routes) => {
+    state.addRoutes = routes
+    state.routes = constantRoutes.concat(routes)
+  },
   RESET_PERMISSSION: (state) => {
     state.routes = []
     state.addRoutes = []
@@ -48,18 +54,20 @@ async function getRoutes(commit) {
     if (menu.pid === 0) {
       let modult = {
         alwaysShow: false,
-        path: menu.path,
-        name: menu.title,
-        component(resolve) {
-          require(['@/views/' + menu.path + '/index.vue'], resolve)
-        },
-        meta: {
-          id: menu.id,
-          title: menu.title,
-          icon: menu.icon
-        }
+        path: '/' + menu.path,
+        component: Layout,
+        id: menu.id,
+        children: [{
+          path: '', // 一级导航为空
+          name: menu.title,
+          component(resolve) {
+            require(['@/views/' + menu.path + '/index.vue'], resolve)
+          },
+          meta: { title: menu.title, icon: menu.icon }
+        }]
       }
       menuRoutes.push(modult)
+      console.log(menuRoutes)
       menuList.splice(i--, 1)
     }
   }
@@ -73,6 +81,7 @@ async function getRoutes(commit) {
     })
     removeMenuList = []
   }
+
   // 添加最终匹配 404 page
   menuRoutes.push({
     path: '*',
@@ -85,20 +94,22 @@ async function getRoutes(commit) {
 // 递归中组装树结构
 function convertTree(menuList, router, removeMenuList) {
   menuList.forEach((m, i) => {
-    if (m.pid && m.pid === router.meta.id) {
+    if (m.pid && m.pid === router.id) {
       if (!router.children) {
         router.children = []
       }
       let menu = {
-        path: m.path,
-        name: m.title,
-        component(resolve) {
-          require(['@/views/' + m.path + '/index.vue'], resolve)
-        },
-        meta: {
-          id: m.id,
-          title: m.title
-        }
+        path: '/' + m.path,
+        component: Layout,
+        id: m.id,
+        children: [{
+          path: m.path,
+          name: m.title,
+          component(resolve) {
+            require(['@/views/' + m.path + '/index.vue'], resolve)
+          },
+          meta: { title: m.title }
+        }]
       }
       router.children.push(convertTree(menuList, menu, removeMenuList))
       removeMenuList.push(m)

@@ -44,9 +44,9 @@
 </template>
 
 <script>
-import { getList } from '@/api/table'
 
 export default {
+  name: 'Table',
   filters: {
     statusFilter(status) {
       const statusMap = {
@@ -60,19 +60,7 @@ export default {
   data() {
     return {
       list: null,
-      listLoading: true
-    }
-  },
-  created() {
-    this.fetchData()
-  },
-  methods: {
-    fetchData() {
-      this.listLoading = true
-      getList().then(response => {
-        this.list = response.data.items
-        this.listLoading = false
-      })
+      listLoading: false
     }
   }
 }

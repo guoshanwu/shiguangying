@@ -12,9 +12,9 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::post('Login/index', 'LoginController@index');  //登录
+Route::post('Login/login', 'LoginController@login');  //登录
 
-Route::get('User/info', 'UserController@info');  //获取用户信息
+Route::get('User/userInfo', 'UserController@userInfo');  //获取用户信息
 
 //验证token
 Route::middleware(['admin.verfig_token'])->group(function(){
@@ -22,9 +22,6 @@ Route::middleware(['admin.verfig_token'])->group(function(){
         Route::get('logout', 'LoginController@logout');  //退出
     });
     Route::prefix('Menu')->group(function(){
-        Route::get('index', 'MenuController@index');  //获取用户对应的菜单
-    });
-    Route::prefix('Menu')->group(function(){
-        Route::get('index', 'MenuController@index');  //用户菜单
+        Route::get('menuList', 'MenuController@menuList');  //获取用户对应的菜单
     });
 });
